@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			
+		}	
+		html {
+            scroll-behavior: smooth;
+        }
+        .navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 20px;
+	position: fixed;
+	width: 100%;
+	z-index: 99999;
+	top: 0;
+	background: rgba(255, 255, 255, 0); /* Semi-transparent background */
+  	backdrop-filter: blur(10px); /* Blurs the content behind */
+  	-webkit-backdrop-filter: blur(10px); /* Safari support */
+  	box-shadow: 0 1px 40px #d4a2ff;
+	animation: onloadnav 3s ease-in-out forwards;
+  }
+  
+  @keyframes onloadnav {
+	0% {
+	  transform: translateY(-40%);
+	  opacity: 0;
+	}
+	100% {
+	  transform: translateY(0);
+	  opacity: 1;
+	}
+  }
+  
+		  
+		  .logo {
+			font-size: 1.5rem;
+			font-weight: bold;
+			color: black;
+			max-width: 150px;
+		  }
+		  @media (max-width:828px){
+			.logo {
+				max-width: 100px;
+			  }
+		  }
+		  @media (max-width:480px){
+			.logo {
+				max-width: 90px;
+			  }
+		  }
+		  
+		  .nav-links {
+			display: flex;
+			list-style: none;
+			
+			margin-left: auto;
+			margin-right: auto;
+			
+			border-radius: 35px;
+			height: 40px;
+			align-items: center;
+			align-content: center;
+		  }
+		  
+		  .nav-links li  {
+			text-decoration: none;
+			font-weight: bold;
+			color: black;
+			padding: 10px 20px;
+			border-radius: 50px;
+			
+		  }
+		  .nav-links a {
+			text-decoration: none;
+			font-size: 1.1rem;
+			font-weight: bold;
+			color: black;
+			padding: 21px 8px;
+			border-radius: 50px;
+			
+			transition: transform 0.9s ease, background-color 0.9s ease;
+		  }
+		  
+		  .nav-links li a:hover {
+			background-color: #9B7EBD;
+			color: white;
+			transform: scale(1.1) rotate(10deg);
+			
+		  }
+		  
+		  .menu-toggle {
+			display: none;
+			flex-direction: column;
+			cursor: pointer;
+			gap: 5px;
+		  }
+		  
+		  .menu-toggle span {
+			width: 25px;
+			height: 3px;
+			background-color: black;
+		  }
+		  
+		  @media (max-width: 768px) {
+			.nav-links {
+			  display: none;
+			  height: auto;
+			  flex-direction: column;
+			  width: 100%;
+			  position: absolute;
+			  top: 45px;
+			  left: 0;
+			  border-radius: 0px;
+			  background-color: white;
+			  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			  padding: 10px 0;
+			}
+			.navbar{
+			  background-color: white;
+			  height: 55px;
+			}
+		  
+			.nav-links.show {
+			  display: flex;
+			}
+		  
+			.menu-toggle {
+			  display: flex;
+			}
+		  
+		  .nav-links a {
+			padding: 10px 20px;
+		  }
+		  }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+		<div class="logo"><img style="width: 100%;height: auto;" src=image\logo.png alt=""></div>
+		<ul class="nav-links">
+		  <li><a href="#contact">Why Us</a></li>
+		  <li><a href="#shop">Whats New</a></li>
+		  <li><a href="#about">About us</a></li>
+		  <li><a href="#about">Contact</a></li>
+		  <li><a href="#about">Log In</a></li>
+		</ul>
+		<div class="menu-toggle">
+		  <span></span>
+		  <span></span>
+		  <span></span>
+		</div>
+	</nav>
+
+    <script>
+        // NAVBAR SECTION
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('show');
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Input Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Profile Details</h1>
+    <form id="profile-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" placeholder="Enter your country" required>
+
+        <label for="language">Language:</label>
+        <input type="text" id="language" placeholder="Enter languages (e.g., English, Hindi)" required>
+
+        <label for="tagline">Profile Tagline:</label>
+        <input type="text" id="tagline" placeholder="Enter your tagline" required>
+
+        <label for="about">About Me:</label>
+        <textarea id="about" rows="5" placeholder="Write about yourself" required></textarea>
+
+        <label for="skills">Skills (comma-separated):</label>
+        <input type="text" id="skills" placeholder="e.g., Graphic Design, Video Editing" required>
+
+        <label for="profilePic">Upload Profile Picture:</label>
+        <input type="file" id="profilePic" accept="image/*" required><br><br>
+
+        <button type="submit">Save and View Profile</button>
+    </form>
+
+    <script>
+        document.getElementById("profile-form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent the default form submission behavior
+
+            const name = document.getElementById("name").value;
+            const country = document.getElementById("country").value;
+            const language = document.getElementById("language").value;
+            const tagline = document.getElementById("tagline").value;
+            const about = document.getElementById("about").value;
+            const skills = document.getElementById("skills").value.split(",");
+
+            const profilePicFile = document.getElementById("profilePic").files[0];
+
+            if (profilePicFile) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const profileData = {
+                        name,
+                        country,
+                        language,
+                        tagline,
+                        about,
+                        skills,
+                        profilePic: event.target.result, // Save the base64 image string
+                    };
+
+                    // Save the data to localStorage
+                    localStorage.setItem("userData", JSON.stringify(profileData));
+                    alert("Profile saved successfully!");
+
+                    // Redirect to the profile page
+                    window.location.href = "Homepage.html";
+                };
+                reader.readAsDataURL(profilePicFile);
+            } else {
+                // If no profile picture is provided, save other data and redirect
+                const profileData = {
+                    name,
+                    country,
+                    language,
+                    tagline,
+                    about,
+                    skills,
+                };
+
+                localStorage.setItem("userData", JSON.stringify(profileData));
+                alert("Profile saved successfully!");
+
+                // Redirect to the profile page
+                window.location.href = "Homepage.html";
+            }
+        });
+    </script>
+</body>
+</html>

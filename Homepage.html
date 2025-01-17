@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href='https://fonts.googleapis.com/css?family=League Spartan' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+        ::-webkit-scrollbar {
+            width: 12px; 
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            color: #ffffff;
+                    background: linear-gradient(
+            180deg,
+            #8c52ff 0%,
+            #7936ff 40%,
+            #e9c5ff 50%,
+            #9B7EBD 70%,
+            #9B7EBD 100%
+        );
+        background-size: 100%;
+        background-position: left;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c079ff;
+            border-radius: 10px;
+        }
+        body {
+			  background: #f7eaff;
+			  font-family: 'League Spartan';
+              line-height: 1.2;
+		}
+        * {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			
+		}	
+/* NAVBAR */
+        .navbar {
+            width: 240px;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            position: fixed;
+            justify-content: space-around;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.517);
+            transform: translateX(-150px); 
+            transition: transform 0.3s ease;
+            transform: translateX(0);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .nav-item h3 {
+            padding: 10px 30px;
+            margin-left: 5px;
+        }
+
+        .nav-item p {
+            margin-left: 12px;
+            margin-top: 12px;
+        }
+        .nav-icon{
+            display: flex;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .nav-icon:hover{
+            background-color: #ebd4ff;
+        }
+        .logo {
+            width: 100%;
+            height: auto;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #d4a2ff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+        }
+
+        .toggle-btn i {
+            font-size: 20px;
+        }
+        .nav-toggle{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            position: fixed;
+            z-index: 99999;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.517);
+            top: 0;
+            opacity: 0;
+        }
+        @media (max-width: 846px) {
+            .navbar {
+                transform: translateX(-240px); /* Hidden by default */
+            }
+            .navbar.active {
+                transform: translateX(0); /* Show when active */
+            }
+            .toggle-btn{
+                opacity: 1;
+            }
+            .logo{
+                opacity: 0;
+            }
+            .nav-toggle{
+                opacity: 1;
+            }
+        }
+        .nav-icon h3 {
+          color: rgb(25, 0, 48);
+        }
+        .fas{
+          color: rgb(25, 0, 48);
+        }
+
+
+
+/* POST SECTION */
+
+        .post-section{
+        margin-left: 250px;
+        margin-top: 80px;
+        overflow: hidden;
+        }
+        .search-section{
+          margin-left: 90px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background-color: #fbf3ff;
+            border-radius: 10px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width:846px){
+        .post-section{
+            margin-left: 2px;
+            margin-top: 100px;
+            }
+            .container{
+                width: 100%;
+                padding: 5px;
+            }
+            .search-section{
+                margin-left: 15px;
+            }
+            }
+        .feed {
+            width: 100%;
+        }
+
+        .tweet-box, .popup {
+            background-color: #ffffff;
+            padding: 20px 40px 20px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .popup {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 80%;
+            box-shadow: 0 2px 5px rgb(43, 0, 65);
+        }
+        .post-buttons{
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+        #tweet-text {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #e1e8ed;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        #media-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+        }
+
+        #tweet-btn, #popup-btn, #close-popup {
+            background-color: #e9c5ff;
+            color: rgb(25, 0, 48);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        #close-popup{
+            margin-top: 40px;
+        }
+
+        #tweet-btn:hover, #popup-btn:hover, #close-popup:hover {
+            background-color: #9B7EBD;
+        }
+
+        #tweets-container {
+            margin-top: 20px;
+        }
+
+        .tweet {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tweet p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .tweet .author {
+            font-weight: bold;
+            color: #1da1f2;
+            cursor: pointer;
+        }
+
+        .comments {
+            margin-top: 10px;
+            border-top: 1px solid #e1e8ed;
+            padding-top: 10px;
+        }
+
+        .comment-box {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+            gap: 0px;
+        }
+        @media (max-width:320px){
+            .comment-box{
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        .comment-box input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #e1e8ed;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .comment-box button {
+            background-color: #9B7EBD;
+            color: white;
+            padding: 5px 10px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .comment {
+            margin-top: 5px;
+        }
+
+        .comment a {
+            color: #1da1f2;
+            text-decoration: none;
+        }
+
+        .comment a:hover {
+            text-decoration: underline;
+        }
+
+
+/* POPUP SECTION */
+
+        .dropdown {
+        margin-bottom: 20px;
+        margin-top: 20px;
+        }
+
+        select {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        }
+
+        .dropdown-section {
+        display: none;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-section.acti {
+            display: block;
+        }
+        .skill-btn{
+            padding: 15px;
+            border-radius: 10px;
+            border: solid 1px black;
+            background-color: #e9c5ff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .skill-btn.clicked {
+            background-color: #d187ff; /* Change to your desired color */
+        }
+  </style>
+</head>
+<body>
+   <!-- NAVBAR -->
+    <div class="nav-toggle">
+        <div><img style="width: 90px;" src="C:\Users\91629\my portfolio\Freelancing website\image\logo.png" alt=""></div>
+        <button class="toggle-btn"><i class="fas fa-bars"></i></button>
+    </div>
+    
+    <div class="navbar">
+        <div class="nav-item"><img class="logo" src="C:\Users\91629\my portfolio\Freelancing website\image\logo.png" alt="Logo"></div>
+        <div>
+            <div class="nav-item"><a href="Homepage.html"><div class="nav-icon"><p><i class="fas fa-home"></i></p><h3>Home</h3></div></a></div>
+            <div class="nav-item"><a href="profile.html"><div class="nav-icon"><p><i class="fas fa-user"></i></p><h3>Profile</h3></div></a></div>
+            <div class="nav-item"><a href="Homepage.html"><div class="nav-icon"><p><i class="fas fa-upload"></i></p><h3>Post work</h3></div></a></div>
+            <div class="nav-item"><a href="Homepage.html"><div class="nav-icon"><p><i class="fas fa-search"></i></p><h3>Find work</h3></div></a></div>
+        </div>
+        <div>
+            <div class="nav-item"><a href=""><div class="nav-icon"><p><i class="fas fa-cog"></i></p><h3>Setting</h3></div></a></div>
+            <div class="nav-item"><a href="index.html"><div class="nav-icon"><p><i class="fas fa-sign-out-alt"></i></p><h3>Log out</h3></div></a></div>
+        </div>
+    </div> 
+  
+
+<!-- POST SECTION -->
+    <div class="post-section">
+
+        <!-- SEARCH -->
+          <div class="search-section">
+            <input type="text" id="search-box" placeholder="Search work..." style="margin-bottom: 20px; padding: 10px; width: 80%; border-radius: 5px; border: 1px solid #ccc;">
+              <div id="search-container" class="search-container">
+                <!-- Existing content -->
+              </div>
+          </div>
+
+
+      <div class="container">
+        <div class="feed">
+            <!-- Updated Tweet Box -->
+            <div class="tweet-box">
+              <textarea id="tweet-text" placeholder="Add title"></textarea>
+              <textarea id="tweet-text" placeholder="Ad a description"></textarea>
+              <div class="post-buttons">
+                <button id="popup-btn">Add required skill</button>
+                <div><button id="tweet-btn">Post</button></div>
+              </div>
+            </div>
+            <div id="tweets-container">
+                <!-- Tweets will appear here -->
+            </div>
+        </div>
+      </div>
+    
+<!-- POPUP SECTION -->
+        <div class="overlay" id="overlay"></div>
+            <div class="popup" id="popup">
+                        <h1>Dynamic Sections with Dropdown</h1>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown">
+                            <label for="section-select">Choose a section:</label>
+                            <select id="section-select">
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="section1">Section 1</option>
+                            <option value="section2">Section 2</option>
+                            <option value="section3">Section 3</option>
+                            </select>
+                        </div>
+
+                        <!-- Sections -->
+                        <div id="section1" class="dropdown-section">
+                            <h3 style="margin-bottom: 20px;">Web developement</h3>
+                            <button class="skill-btn" onclick="changeColor(this)">HTML</button>
+                            <button class="skill-btn" onclick="changeColor(this)">CSS</button>
+                            <button class="skill-btn" onclick="changeColor(this)">JS</button>
+                        </div>
+                        <div id="section2" class="dropdown-section">
+                            <h3 style="margin-bottom: 20px;">Web developement</h3>
+                            <button class="skill-btn" onclick="changeColor(this)">Skill 1</button>
+                            <button class="skill-btn" onclick="changeColor(this)">Skill 2</button>
+                            <button class="skill-btn" onclick="changeColor(this)">Skill 3</button>
+                        </div>
+                        <div id="section3" class="dropdown-section">
+                            <h3 style="margin-bottom: 20px;">Web developement</h3>
+                            <button class="skill-btn" onclick="changeColor(this)">Skill 1</button>
+                            <button class="skill-btn" onclick="changeColor(this)">Skill 2</button>
+                            <button class="skill-btn" onclick="changeColor(this)">Skill 3</button>
+                        </div>
+                        <button id="close-popup">Save</button>
+                        
+            </div>
+    
+        </div>
+
+
+
+      
+      
+
+    <script>
+        // NAVBAR TOGGLE
+const toggleBtn = document.querySelector('.toggle-btn');
+const navbar = document.querySelector('.navbar');
+
+toggleBtn.addEventListener('click', () => {
+    navbar.classList.toggle('active');
+});
+
+// POST SECTION
+// Array to store selected skills
+let selectedSkills = [];
+
+// Add event listeners to skill buttons
+document.querySelectorAll('.skill-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+        const skill = button.textContent.trim();
+        if (!selectedSkills.includes(skill)) {
+            selectedSkills.push(skill); // Avoid duplicates
+        }
+    });
+});
+
+function changeColor(button) {
+    button.classList.toggle('clicked');
+}
+
+// Add comment functionality
+function addCommentFunctionality(tweetDiv) {
+    const commentBtn = tweetDiv.querySelector('.comment-btn');
+    commentBtn.addEventListener('click', function () {
+        const commentInput = tweetDiv.querySelector('.comment-input');
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+            const commentList = tweetDiv.querySelector('.comment-list');
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            commentDiv.innerHTML = `<a href="#profile">Someone</a>: ${commentText}`;
+            commentList.appendChild(commentDiv);
+            commentInput.value = '';
+
+            updateCommentVisibility(tweetDiv);
+        }
+    });
+
+    // Show more button functionality
+    const showMoreBtn = tweetDiv.querySelector('.show-more-btn');
+    showMoreBtn.addEventListener('click', function () {
+        const comments = tweetDiv.querySelectorAll('.comment');
+        comments.forEach(comment => (comment.style.display = 'block'));
+        showMoreBtn.style.display = 'none';
+    });
+}
+
+// Limit visible comments to 4 and show the "Show More" button if needed
+function updateCommentVisibility(tweetDiv) {
+    const comments = tweetDiv.querySelectorAll('.comment');
+    const showMoreBtn = tweetDiv.querySelector('.show-more-btn');
+
+    comments.forEach((comment, index) => {
+        comment.style.display = index < 4 ? 'block' : 'none';
+    });
+
+    if (comments.length > 4) {
+        showMoreBtn.style.display = 'block';
+    } else {
+        showMoreBtn.style.display = 'none';
+    }
+}
+
+// Update the "Post" button functionality
+document.getElementById('tweet-btn').addEventListener('click', function () {
+    const titleText = document.querySelectorAll('#tweet-text')[0].value; // First textarea
+    const descriptionText = document.querySelectorAll('#tweet-text')[1].value; // Second textarea
+
+
+    if (titleText.trim() || descriptionText.trim()) {
+        const tweetContainer = document.getElementById('tweets-container');
+        const tweetDiv = document.createElement('div');
+        tweetDiv.classList.add('tweet');
+
+        // Generate skill badges
+        const skillsHTML = selectedSkills
+            .map(skill => `<span style="display: inline-block; background-color: #d4a2ff; color: #fff; padding: 5px 10px; margin: 5px; border-radius: 15px;">${skill}</span>`)
+            .join('');
+
+        tweetDiv.innerHTML = `
+            <p class="author">Your Name</p>
+            <h2 style="font-size: 20px; color: #333;margin-top:20px;">${titleText}</h2>
+            <p style="font-size: 16px; color: #555;margin-top:10px;">${descriptionText}</p>
+            <div style="margin-top:15px;">${skillsHTML}</div>
+            <div class="comments">
+                <div class="comment-box">
+                    <input type="text" class="comment-input" placeholder="Write a comment..." />
+                    <button class="comment-btn">Comment</button>
+                </div>
+                <div class="comment-list"></div>
+                <button class="show-more-btn" style="display: none; margin-top: 10px; background: #9B7EBD; color: white; border: none; border-radius: 10px; padding: 5px 10px; cursor: pointer;">See More</button>
+            </div>
+        `;
+
+        tweetContainer.prepend(tweetDiv);
+
+        // Add functionality to comments
+        addCommentFunctionality(tweetDiv);
+
+        // Clear the textareas and reset selected skills
+        document.querySelectorAll('#tweet-text')[0].value = '';
+        document.querySelectorAll('#tweet-text')[1].value = '';
+        selectedSkills = [];
+
+        // Ensure only a maximum of 4 comments are shown initially
+        updateCommentVisibility(tweetDiv);
+    }
+});
+
+
+
+
+
+// Search functionality
+document.getElementById('search-box').addEventListener('input', function () {
+    const searchQuery = this.value.toLowerCase();
+    const posts = document.querySelectorAll('.tweet');
+
+    posts.forEach(post => {
+        const title = post.querySelector('h2').textContent.toLowerCase();
+        const description = post.querySelector('p').textContent.toLowerCase();
+        const skills = Array.from(post.querySelectorAll('span')).map(skill => skill.textContent.toLowerCase());
+
+        // Check if the search query matches the title, description, or skills
+        if (title.includes(searchQuery) || description.includes(searchQuery) || skills.some(skill => skill.includes(searchQuery))) {
+            post.style.display = 'block';
+        } else {
+            post.style.display = 'none';
+        }
+    });
+});
+
+
+
+
+
+
+
+
+// POPUP FUNCTIONALITY
+const popup = document.getElementById('popup');
+const overlay = document.getElementById('overlay');
+const popupBtn = document.getElementById('popup-btn');
+const closePopupBtn = document.getElementById('close-popup');
+
+popupBtn.addEventListener('click', () => {
+    popup.style.display = 'block';
+    overlay.style.display = 'block';
+});
+
+closePopupBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+overlay.addEventListener('click', () => {
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+// DROPDOWN SECTION
+const dropdown = document.getElementById('section-select');
+const sections = document.querySelectorAll('.dropdown-section');
+
+dropdown.addEventListener('change', (event) => {
+    const selectedValue = event.target.value;
+
+    // Hide all sections
+    sections.forEach(section => {
+        section.classList.remove('acti');
+    });
+
+    // Show the selected section
+    if (selectedValue) {
+        const selectedSection = document.getElementById(selectedValue);
+        selectedSection.classList.add('acti');
+    }
+});
+
+    </script>
+</body>
+</html>
